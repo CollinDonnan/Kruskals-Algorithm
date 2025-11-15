@@ -1,1 +1,1 @@
-# Advanced DSA
+# Kruskal's algorithm
