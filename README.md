@@ -2,7 +2,7 @@
 
 This repository contains an implementation of **Kruskal's algorithm** in Python.  
 Kruskal's algorithm is a greedy algorithm used to find the **minimum spanning tree (MST)** of a weighted graph.  
-This implementation assumes edges are represented as tuples in the form:
+This implementation assumes edges are represented as tuples in the form: (W, E1, E2)
 
 
 ## How It Works
