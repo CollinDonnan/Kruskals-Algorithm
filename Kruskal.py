@@ -1,36 +1,43 @@
 class UnionFind:
     def __init__(self, n):
         self.parent = list(range(n))
+        self.rank = [0] * n 
 
-        
-    def find(self, x,):
-        if self.parent[x] == x:
-            return x
-        else: 
-            return self.find(self.parent[x])
-        
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
     def union(self, x, y):
-        py = self.find(y)
-        px = self.find(x)
+        rootX = self.find(x)
+        rootY = self.find(y)
 
-        if(py == px):
+        if rootX == rootY:
             return False
-        self.parent[px] = py
+
+        if self.rank[rootX] < self.rank[rootY]:
+            self.parent[rootX] = rootY
+        elif self.rank[rootX] > self.rank[rootY]:
+            self.parent[rootY] = rootX
+        else:
+            self.parent[rootY] = rootX
+            self.rank[rootX] += 1
+
         return True
 
 
-
 def kruskal(edges, num_of_verts):
-    edges.sort()
+    edges.sort() 
+
     total = 0
     mst = []
     uf = UnionFind(num_of_verts)
-    for edge in edges:
-        if uf.find(edge[1]) == uf.find(edge[2]):
-            continue
-        else: 
-            uf.union(edge[1], edge[2])
-            mst.append([edge[1], edge[2]])
-            total = total + edge[0]
+
+    for w, u, v in edges:
+        if uf.union(u, v):         
+            mst.append((u, v, w))   
+            total += w
+
     return mst, total
+
     
